@@ -1,43 +1,52 @@
 <script setup>
-// This starter template is using Vue 3 <script setup> SFCs
-// Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
-import Greet from "./components/Greet.vue";
+import { reactive, ref } from '@vue/reactivity'
+
+// 将数据变为响应式的:支持多层签到
+let obj = reactive({
+  a: 1,
+  b: 2,
+  c: {
+    d: 1,
+    e: 8
+  }
+})
+
+let simple = ref('你好，世界')
+
+let myHot = reactive([1, 2, 3, 4])
+
+let addBtn = function () {
+  obj.a += 1
+}
+
+let addWraper = () => {
+  obj.c.d += 1
+}
+
+let editSim = () => {
+  // 使用ref包裹的数据，增加了一个value
+  // ref 用于简单数据类型：
+  // reactive用于对象
+  simple.value = '我喜欢你好久了'
+}
+
+let editArray = () => {
+  // 所以数组也用reactive
+  myHot.push(111111)
+  myHot[0] = 888
+}
 </script>
 
 <template>
   <div class="container">
-    <h1>Welcome to Tauri!</h1>
-
-    <div class="row">
-      <a href="https://vitejs.dev" target="_blank">
-        <img src="/vite.svg" class="logo vite" alt="Vite logo" />
-      </a>
-      <a href="https://tauri.app" target="_blank">
-        <img src="/tauri.svg" class="logo tauri" alt="Tauri logo" />
-      </a>
-      <a href="https://vuejs.org/" target="_blank">
-        <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-      </a>
+    <div>
+      <div>{{obj}} :: {{simple}}::{{myHot}}</div>
+      <button @click="addBtn">增加一层</button>
+      <button @click="addWraper">增加二层</button>
+      <button @click="editSim">改变字符串</button>
+      <button @click="editArray">改变数组</button>
+      <input type="text">
     </div>
-
-    <p>Click on the Tauri, Vite, and Vue logos to learn more.</p>
-
-    <p>
-      Recommended IDE setup:
-      <a href="https://code.visualstudio.com/" target="_blank">VS Code</a>
-      +
-      <a href="https://github.com/johnsoncodehk/volar" target="_blank">Volar</a>
-      +
-      <a href="https://github.com/tauri-apps/tauri-vscode" target="_blank"
-        >Tauri</a
-      >
-      +
-      <a href="https://github.com/rust-lang/rust-analyzer" target="_blank"
-        >rust-analyzer</a
-      >
-    </p>
-
-    <Greet />
   </div>
 </template>
 
