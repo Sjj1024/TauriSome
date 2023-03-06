@@ -11,6 +11,7 @@
     "publish": "tauri build"
   },
   "dependencies": {
+    "@ant-design/icons-vue": "^6.1.0",
     "@tauri-apps/api": "^1.2.0",
     "ant-design-vue": "^3.2.15",
     "node-sass": "^8.0.0",
