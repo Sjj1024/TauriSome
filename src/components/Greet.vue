@@ -9,7 +9,7 @@ async function greet() {
   // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
   // 先判断是不是tauri环境还是浏览器环境
   greetMsg.value = await invoke("greet", { name: name.value });
-  console.log("按钮备件第几了");
+  console.log("按钮被点击了");
   
 }
 </script>
