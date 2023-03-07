@@ -12,6 +12,7 @@ import type { UploadChangeParam } from 'ant-design-vue'
 import { message } from 'ant-design-vue'
 import { UploadOutlined } from '@ant-design/icons-vue'
 import { LeftCircleOutlined, RightCircleOutlined } from '@ant-design/icons-vue'
+import { http } from '@tauri-apps/api'
 
 const greetMsg = ref('')
 const name = ref('')
@@ -40,6 +41,14 @@ async function greet() {
     // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
     greetMsg.value = await invoke('greet', { name: name.value })
     console.log('按钮被点击了')
+    // 跨域数据
+    http.fetch('https://juejin.cn/post/7096692845725581348', {
+        method: 'POST',
+        responseType: http.ResponseType.Text,
+    })
+        .then((response) => console.log('response------', response))
+        .then((result) => console.log('result-------', result))
+        .catch((error) => console.log('error', error))
 }
 
 const plainOptions = ['Apple', 'Pear', 'Orange']
