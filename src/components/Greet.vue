@@ -45,7 +45,7 @@ async function greet() {
     http.fetch('https://juejin.cn/post/7096692845725581348', {
         method: 'POST',
         responseType: http.ResponseType.Text,
-    })
+    }) 
         .then((response) => console.log('response------', response))
         .then((result) => console.log('result-------', result))
         .catch((error) => console.log('error', error))
