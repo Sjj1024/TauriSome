@@ -6,18 +6,22 @@ import {
     StarFilled,
     StarTwoTone,
     SketchCircleFilled,
+    UploadOutlined,
+    LeftCircleOutlined,
+    RightCircleOutlined,
 } from '@ant-design/icons-vue'
 import dayjs, { Dayjs } from 'dayjs'
 import type { UploadChangeParam } from 'ant-design-vue'
 import { message } from 'ant-design-vue'
-import { UploadOutlined } from '@ant-design/icons-vue'
-import { LeftCircleOutlined, RightCircleOutlined } from '@ant-design/icons-vue'
 import { http } from '@tauri-apps/api'
+import { useStore } from '../store/user'
 
 const greetMsg = ref('')
 const name = ref('')
 const current = ref(6)
 
+//
+const userInfo = useStore()
 // 定义一个数据类型或者接口Option的对象，包含value并且它的值是string类型
 interface Option {
     value: string
@@ -41,11 +45,12 @@ async function greet() {
     // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
     greetMsg.value = await invoke('greet', { name: name.value })
     console.log('按钮被点击了')
+    userInfo.counter += 1
     // 跨域数据
     http.fetch('https://juejin.cn/post/7096692845725581348', {
         method: 'POST',
         responseType: http.ResponseType.Text,
-    }) 
+    })
         .then((response) => console.log('response------', response))
         .then((result) => console.log('result-------', result))
         .catch((error) => console.log('error', error))
@@ -123,7 +128,7 @@ const headers = {
     <div class="card">
         <input id="greet-input" v-model="name" placeholder="Enter a name..." />
         <!-- <button type="button" @click="greet()">Greet</button> -->
-        <a-button type="primary" @click="greet()">Primary Greet</a-button>
+        <a-button type="primary" @click="greet()">Primary Greet {{ userInfo.counter }}}</a-button>
         <a-row>
             <a-col :span="12">col-12</a-col>
             <a-col :span="12">
